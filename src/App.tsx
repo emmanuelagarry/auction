@@ -1,21 +1,31 @@
-import * as React from 'react';
+// import React, { Suspense, lazy } from 'react';
+import * as React from "react";
+
 import { render } from 'react-dom';
 
- import NavBar from './Navbar';
-import Home from './components/Home';
+
+const Home = React.lazy(() => import('./components/Home'));
+
+
+  
 import { Router } from "@reach/router";
 
 
-const App = () => {
+
+function App () {
     return (
         <div>
-            <Router>
-                <Home path="/"/>
-            </Router>
+        
+
+            <React.Suspense fallback={<div>Loading...</div>}>
+                <Router>
+                     <Home  path="/"/>
+                    </Router>
+            </React.Suspense>
         </div>
     )
 }
 
 render(
-[<NavBar key="nav"/>, <App key="App"/> ], document.getElementById('app')
+<App key="App"/> , document.getElementById('app')
 );
